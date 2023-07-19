@@ -65,7 +65,7 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.5 }) {
     }
 
     function flipCellsAround(coord) {
-        setBoard(oldBoard => {
+        setBoard((oldBoard) => {
             const [y, x] = coord.split("-").map(Number);
 
             const flipCell = (y, x, boardCopy) => {
@@ -95,25 +95,24 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.5 }) {
 
     // Make table JSX board
     return (
-        <div>
-            <table>
-                <tbody>
-                    {board.map((row) => {
-                        return (
-                            <tr>
-                                {row.map((value) => {
-                                    return (
-                                        <Cell
-                                            flipCellsAroundMe={flipCellsAround}
-                                            isLit={value}/>
-                                    );
-                                })}
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-        </div>
+        <table>
+            <tbody>
+                {board.map((row) => {
+                    return (
+                        <tr>
+                            {row.map((value) => {
+                                return (
+                                    <Cell
+                                        flipCellsAroundMe={flipCellsAround}
+                                        isLit={value}
+                                    />
+                                );
+                            })}
+                        </tr>
+                    );
+                })}
+            </tbody>
+        </table>
     )
 }
 
