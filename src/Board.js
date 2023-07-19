@@ -57,8 +57,8 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.5 }) {
      * Return true if player has won (all lights on board are off), and false otherwise.
      */
     function hasWon() {
-        return board.all((row) => {
-            return row.all((value) => {
+        return board.every((row) => {
+            return row.every((value) => {
                 return value === false;
             });
         });
