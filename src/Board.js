@@ -37,7 +37,7 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.5 }) {
         return Math.random() < chanceTrue;
     }
 
-    /** Create a board nrows high/ncols wide, each cell randomly lit or unlit */
+    /** Create a JS board nrows high/ncols wide, each cell randomly lit or unlit */
     function createBoard() {
         let initialBoard = [];
 
@@ -66,26 +66,25 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.5 }) {
 
     function flipCellsAround(coord) {
         setBoard(oldBoard => {
-        const [y, x] = coord.split("-").map(Number);
+            const [y, x] = coord.split("-").map(Number);
 
-        const flipCell = (y, x, boardCopy) => {
-            // if this coord is actually on board, flip it
+            const flipCell = (y, x, boardCopy) => {
+                // if this coord is actually on board, flip it
 
-            if (x >= 0 && x < ncols && y >= 0 && y < nrows) {
-                boardCopy[y][x] = !boardCopy[y][x];
-            }
-        };
+                if (x >= 0 && x < ncols && y >= 0 && y < nrows) {
+                    boardCopy[y][x] = !boardCopy[y][x];
+                }
+            };
 
-        // TODO: Make a (deep) copy of the oldBoard
+            // TODO: Make a (deep) copy of the oldBoard
 
-        // TODO: in the copy, flip this cell and the cells around it
+            // TODO: in the copy, flip this cell and the cells around it
 
-        // TODO: return the copy
+            // TODO: return the copy
         });
     }
 
-    // if the game is won, just show a winning msg & render nothing else
-    // TODO
+    // Display simple message when game is won
     if (hasWon()) {
         return (
             <div>
@@ -94,12 +93,26 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.5 }) {
         );
     }
 
-    // make table board
-    // TODO
+    // Make table JSX board
     return (
         <div>
-            Board will go here
-            Hello world
+            <table>
+                <tbody>
+                    {board.map((row) => {
+                        return (
+                            <tr>
+                                {row.map((value) => {
+                                    return (
+                                        <Cell
+                                            flipCellsAroundMe={flipCellsAround}
+                                            isLit={value}/>
+                                    );
+                                })}
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </table>
         </div>
     )
 }
