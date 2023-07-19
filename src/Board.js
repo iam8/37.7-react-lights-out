@@ -79,21 +79,32 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.5 }) {
 
             const flipCell = (y, x, boardCopy) => {
 
-                // if this coord is actually on board, flip it
+                // If this coord is actually on board, flip it
                 if (x >= 0 && x < ncols && y >= 0 && y < nrows) {
                     boardCopy[y][x] = !boardCopy[y][x];
                 }
             };
 
             // Make a (deep) copy of the oldBoard
-            const newBoard = oldBoard.map((row) => {
+            const boardCopy = oldBoard.map((row) => {
                 return row.map((value) => value);
             });
 
-            // TODO: in the copy, flip this cell and the cells around it
+            // In the copy, flip this cell and the cells around it
+            const targetCoords = [
+                [y, x],
+                [y+1, x],
+                [y-1, x],
+                [y, x+1],
+                [y, x-1]
+            ];
+
+            for (let [y, x] of targetCoords) {
+                flipCell(y, x, boardCopy);
+            }
 
             // Return the copy
-            return newBoard;
+            return boardCopy;
         });
     }
 
@@ -112,11 +123,12 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.5 }) {
             <tbody>
                 {board.map((row, nrow) => {
                     return (
-                        <tr>
+                        <tr key={nrow}>
                             {row.map((value, ncol) => {
                                 const coords = `${nrow}-${ncol}`;
                                 return (
                                     <Cell
+                                        key={coords}
                                         flipCellsAroundMe={() => {flipCellsAround(coords)}}
                                         isLit={value}
                                     />
