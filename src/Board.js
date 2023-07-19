@@ -26,22 +26,21 @@ import "./Board.css";
  *  This doesn't handle any clicks --- clicks are on individual cells
  *
  **/
-function Board({ nrows, ncols, chanceLightStartsOn }) {
+function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.5 }) {
     const [board, setBoard] = useState(createBoard());
 
     /**
      * Randomly return true or false, with chance of returning true set by chanceTrue
-     * (float between 0.0 and 1.0).
+     * (float between 0.0 and 1.0, inclusive).
      */
     function makeChoiceTrueFalse(chanceTrue) {
         return Math.random() < chanceTrue;
     }
 
-    /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
+    /** Create a board nrows high/ncols wide, each cell randomly lit or unlit */
     function createBoard() {
         let initialBoard = [];
 
-        // TODO: create array-of-arrays of true/false values
         for (let i = 0; i < nrows; i++) {
             const row = [];
             for (let j = 0; j < ncols; j++) {
