@@ -53,8 +53,15 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.5 }) {
         return initialBoard;
     }
 
+    /**
+     * Return true if player has won (all lights on board are off), and false otherwise.
+     */
     function hasWon() {
-        // TODO: check the board in state to determine whether the player has won.
+        return board.all((row) => {
+            return row.all((value) => {
+                return value === false;
+            });
+        });
     }
 
     function flipCellsAround(coord) {
