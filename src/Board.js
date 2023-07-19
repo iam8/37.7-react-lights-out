@@ -64,23 +64,36 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.5 }) {
         });
     }
 
+    /**
+     * Flip cell at given coordinates and the cells immediately above, below, to the left, and to
+     * the right of it.
+     *
+     * Parameters:
+     * - coord: a string representing cell coordinates ("row#-column#').
+     *
+     * Return: an updated copy of the JSX game board.
+     */
     function flipCellsAround(coord) {
         setBoard((oldBoard) => {
             const [y, x] = coord.split("-").map(Number);
 
             const flipCell = (y, x, boardCopy) => {
-                // if this coord is actually on board, flip it
 
+                // if this coord is actually on board, flip it
                 if (x >= 0 && x < ncols && y >= 0 && y < nrows) {
                     boardCopy[y][x] = !boardCopy[y][x];
                 }
             };
 
-            // TODO: Make a (deep) copy of the oldBoard
+            // Make a (deep) copy of the oldBoard
+            const newBoard = oldBoard.map((row) => {
+                return row.map((value) => value);
+            });
 
             // TODO: in the copy, flip this cell and the cells around it
 
-            // TODO: return the copy
+            // Return the copy
+            return newBoard;
         });
     }
 
@@ -97,13 +110,14 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.5 }) {
     return (
         <table>
             <tbody>
-                {board.map((row) => {
+                {board.map((row, nrow) => {
                     return (
                         <tr>
-                            {row.map((value) => {
+                            {row.map((value, ncol) => {
+                                const coords = `${nrow}-${ncol}`;
                                 return (
                                     <Cell
-                                        flipCellsAroundMe={flipCellsAround}
+                                        flipCellsAroundMe={() => {flipCellsAround(coords)}}
                                         isLit={value}
                                     />
                                 );
