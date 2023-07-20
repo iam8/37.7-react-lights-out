@@ -26,7 +26,7 @@ import "./Board.css";
  *  This doesn't handle any clicks --- clicks are on individual cells
  *
  **/
-function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.5 }) {
+function Board({ nrows=6, ncols=6, chanceLightStartsOn=0.5 }) {
     const [board, setBoard] = useState(createBoard());
 
     /**
