@@ -112,28 +112,30 @@ function Board({ nrows=6, ncols=6, chanceLightStartsOn=0.5 }) {
     }
 
     // Make table JSX board
-    return (
-        <table>
-            <tbody>
-                {board.map((row, nrow) => {
+    const jsxBoard = board.map((row, nrow) => {
+        return (
+            <tr key={nrow}>
+                {row.map((value, ncol) => {
+                    const coords = `${nrow}-${ncol}`;
                     return (
-                        <tr key={nrow}>
-                            {row.map((value, ncol) => {
-                                const coords = `${nrow}-${ncol}`;
-                                return (
-                                    <Cell
-                                        key={coords}
-                                        flipCellsAroundMe={() => {flipCellsAround(coords)}}
-                                        isLit={value}
-                                    />
-                                );
-                            })}
-                        </tr>
+                        <Cell
+                            key={coords}
+                            flipCellsAroundMe={() => {flipCellsAround(coords)}}
+                            isLit={value}
+                        />
                     );
                 })}
+            </tr>
+        );
+    })
+
+    return (
+        <table className="Board">
+            <tbody>
+                {jsxBoard}
             </tbody>
         </table>
-    )
+    );
 }
 
 export default Board;
