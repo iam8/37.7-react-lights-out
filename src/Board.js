@@ -59,7 +59,7 @@ function Board({ nrows=6, ncols=6, chanceLightStartsOn=0.5 }) {
     function hasWon() {
         return board.every((row) => {
             return row.every((value) => {
-                return value === false;
+                return !value;
             });
         });
     }
@@ -86,9 +86,7 @@ function Board({ nrows=6, ncols=6, chanceLightStartsOn=0.5 }) {
             };
 
             // Make a (deep) copy of the oldBoard
-            const boardCopy = oldBoard.map((row) => {
-                return row.map((value) => value);
-            });
+            const boardCopy = oldBoard.map((row) => [...row]);
 
             // In the copy, flip this cell and the cells around it
             const targetCoords = [
@@ -110,11 +108,7 @@ function Board({ nrows=6, ncols=6, chanceLightStartsOn=0.5 }) {
 
     // Display simple message when game is won
     if (hasWon()) {
-        return (
-            <div>
-                <h2>You won!</h2>
-            </div>
-        );
+        return <div>You won!</div>;
     }
 
     // Make table JSX board
