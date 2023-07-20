@@ -9,7 +9,7 @@ function App() {
       <div className="App">
         <h1>Lights Out</h1>
         <div className="App-board">
-            <Board nrows={6} ncols={6} chanceLightStartsOn={0.5} />
+            <Board />
         </div>
       </div>
   );
